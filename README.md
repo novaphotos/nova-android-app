@@ -5,6 +5,8 @@ See:
 *    https://wantnova.com/ <-- Nova flash
 *    https://wantnova.com/play <-- Get the app from Google Play
 
+![Screenshot](screenshot1.jpg)
+
 Requirements
 ------------
 
