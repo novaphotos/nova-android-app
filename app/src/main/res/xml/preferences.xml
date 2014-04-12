@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- These prefs disabled for now as they may not be necessary on android
+    <SwitchPreference
+        android:key="pref_ask_to_edit"
+        android:title="Ask to edit after taking"
+        android:defaultValue="true" />
+    <SwitchPreference
+        android:key="pref_ask_to_share"
+        android:title="Ask to share after taking"
+        android:defaultValue="true" /> -->
+    <!-- Disabled until implemented -->
+    <!--<SwitchPreference-->
+        <!--android:key="pref_show_gridlines"-->
+        <!--android:title="Show grid lines"-->
+        <!--android:summary="Display grid lines in live camera view"-->
+        <!--android:defaultValue="false" />-->
+    <!--<SwitchPreference-->
+        <!--android:key="pref_square_shaped_photos"-->
+        <!--android:title="Square shaped photos"-->
+        <!--android:summary="Crop photos down to squares instead of rectangles"-->
+        <!--android:defaultValue="false" />-->
+    <!--<SwitchPreference-->
+        <!--android:key="pref_use_multiple_novas"-->
+        <!--android:title="Use multiple Novas"-->
+        <!--android:summary="Allows connecting multiple Novas to one camera"-->
+        <!--android:defaultValue="false" />-->
+    <!--<Preference android:title="Tutorial">-->
+        <!--<intent-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:data="http://www.google.com?q=nova+tutorial" />-->
+    <!--</Preference>-->
+    <!--<Preference android:title="Help and support">-->
+        <!--<intent-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:data="http://www.google.com?q=nova+help+and+support" />-->
+    <!--</Preference>-->
+    <!--<Preference android:title="Order a Nova flash">-->
+        <!--<intent-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:data="http://www.google.com?q=order+a+nova+flash" />-->
+    <!--</Preference>-->
+    <Preference android:title="About Nova">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://wantnova.com" />
+    </Preference>
+</PreferenceScreen>

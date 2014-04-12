@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Nova Camera</string>
+    <string name="prefs_button">Settings</string>
+    <string name="switch_button">Switch</string>
+    <string name="gallery_button">Gallery</string>
+    <string name="shutter_button">Shutter</string>
+    <string name="mode_button">Mode</string>
+    <string name="off_button_label">Off</string>
+    <string name="gentle_button_label">Gentle</string>
+    <string name="warm_button_label">Warm</string>
+    <string name="bright_button_label">Bright</string>
+    <string name="custom_button_label">Custom</string>
+    <string name="title_activity_view_photo">View Photo</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit_button">Edit</string>
+    <string name="share_button">Share</string>
+    <string name="camera_button">Camera</string>
+    <string name="delete_button">Delete</string>
+    <string name="no_images_found">No photos in Nova Camera folder.</string>
+    <string name="loading">Loading...</string>
+    <string name="edit">Edit</string>
+    <string name="title_activity_review_photo">ReviewPhoto</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="captured_image">Captured image</string>
+    <string name="test">Test</string>
+    <string name="ok">Ok</string>
+
+</resources>

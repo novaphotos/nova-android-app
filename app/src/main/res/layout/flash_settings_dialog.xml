@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+    android:gravity="center"
+    android:background="#0000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_border"
+        android:id="@+id/dialog_area">
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dip">
+            <RadioButton
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/off_button"
+                style="@style/RadioButtonOff"/>
+            <RadioButton
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/gentle_button"
+                style="@style/RadioButtonGentle"/>
+            <RadioButton
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/warm_button"
+                style="@style/RadioButtonWarm"/>
+            <RadioButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/bright_button"
+                style="@style/RadioButtonBright"/>
+            <!--<RadioButton-->
+                <!--android:layout_weight="1"-->
+                <!--android:paddingRight="5dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:id="@+id/custom_button"-->
+                <!--android:text="@string/custom_button_label"/>-->
+        </RadioGroup>
+        <FrameLayout
+            android:id="@+id/content_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dip"
+                android:layout_weight="1">
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="5dip"
+                          android:text="Nova Status: Disconnected"
+                          android:textColor="#ffff" />
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_margin="5dip"
+                          android:text="Signal: None"
+                          android:textColor="#ffff" />
+            </LinearLayout>
+
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/test_button"
+                android:layout_gravity="center"
+                android:layout_margin="10dip"
+                android:background="@drawable/button_test"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/ok_button"
+                android:layout_margin="10dip"
+                android:layout_gravity="center"
+                android:background="@drawable/button_ok"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
