@@ -1,0 +1,54 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sneakysquid.nova.app.activity.ReviewPhoto"
+    android:background="#111111">
+
+    <ImageView
+        android:id="@+id/review_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/captured_image"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:gravity="center"
+        android:background="@drawable/camera_gradient"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dip">
+
+        <Button
+            android:id="@+id/use_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@android:drawable/btn_default"/>
+
+        <Button
+            android:id="@+id/retake_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retake"
+            android:layout_weight="1"
+            android:background="@android:drawable/btn_default"/>
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_weight="1"
+            android:background="@android:drawable/btn_default"/>
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,105 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context="com.sneakysquid.nova.app.activity.NovaCamera"
+    android:id="@+id/activity_nova_camera">
+
+    <com.android.camera.PreviewFrameLayout
+        android:id="@+id/preview_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.sneakysquid.nova.app.ui.CameraPreview
+            android:id="@+id/camera_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:gravity="center"/>
+    </com.android.camera.PreviewFrameLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:gravity="center"
+            android:background="@drawable/camera_gradient"/>
+
+    <com.sneakysquid.nova.app.ui.GravityLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center">
+        <com.sneakysquid.nova.app.ui.FlashSettingsDialog
+            android:id="@+id/flash_settings_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+    </com.sneakysquid.nova.app.ui.GravityLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="20dip">
+        <com.sneakysquid.nova.app.ui.GravityButton
+            android:id="@+id/prefs_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prefs_button"
+            android:layout_weight=".2"
+            android:src="@drawable/prefs_icon"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight=".7"
+            />
+
+        <com.sneakysquid.nova.app.ui.GravityButton
+            android:id="@+id/switch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_button"
+            android:src="@drawable/switch_icon"
+            android:layout_weight=".2"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dip">
+
+    <com.sneakysquid.nova.app.ui.GravityButton
+        android:id="@+id/gallery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gallery_button"
+        android:src="@drawable/gallery_icon"
+        android:layout_gravity="center_vertical"
+        android:layout_weight=".2"
+        android:background="@android:color/transparent"/>
+
+    <com.sneakysquid.nova.app.ui.GravityButton
+        android:id="@+id/shutter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shutter_button"
+        android:layout_gravity="center_vertical"
+        android:layout_weight=".7"
+        android:src="@drawable/shutter_icon_bg"
+        android:background="@android:color/transparent" />
+
+    <com.sneakysquid.nova.app.ui.GravityButton
+        android:id="@+id/mode_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_button"
+        android:src="@drawable/mode_icon_no_overlay"
+        android:layout_gravity="center_vertical"
+        android:layout_weight=".2"
+        android:background="@android:color/transparent" />
+
+    </LinearLayout>
+</FrameLayout>

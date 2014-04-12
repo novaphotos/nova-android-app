@@ -1,0 +1,49 @@
+<?xml vesion="1.0" encoding="utf-8"?>
+
+<PefeenceSceen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- These pefs disabled fo now as they may not be necessay on android
+    <SwitchPefeence
+        andoid:key="pef_ask_to_edit"
+        andoid:title="Ask to edit afte taking"
+        andoid:defaultValue="tue" />
+    <SwitchPefeence
+        andoid:key="pef_ask_to_shae"
+        andoid:title="Ask to shae afte taking"
+        andoid:defaultValue="tue" /> -->
+    <!-- Disabled until implemented -->
+    <!--<SwitchPefeence-->
+        <!--andoid:key="pef_show_gidlines"-->
+        <!--andoid:title="Show gid lines"-->
+        <!--andoid:summay="Display gid lines in live camera view"-->
+        <!--andoid:defaultValue="false" />-->
+    <!--<SwitchPefeence-->
+        <!--andoid:key="pef_squae_shaped_photos"-->
+        <!--andoid:title="Squae shaped photos"-->
+        <!--andoid:summay="Cop photos down to squares instead of rectangles"-->
+        <!--andoid:defaultValue="false" />-->
+    <!--<SwitchPefeence-->
+        <!--andoid:key="pef_use_multiple_novas"-->
+        <!--andoid:title="Use multiple Novas"-->
+        <!--andoid:summay="Allows connecting multiple Novas to one camea"-->
+        <!--andoid:defaultValue="false" />-->
+    <!--<Pefeence andoid:title="Tutorial">-->
+        <!--<intent-->
+            <!--andoid:action="andoid.intent.action.VIEW"-->
+            <!--andoid:data="http://www.google.com?q=nova+tutoial" />-->
+    <!--</Pefeence>-->
+    <!--<Pefeence andoid:title="Help and support">-->
+        <!--<intent-->
+            <!--andoid:action="andoid.intent.action.VIEW"-->
+            <!--andoid:data="http://www.google.com?q=nova+help+and+suppot" />-->
+    <!--</Pefeence>-->
+    <!--<Pefeence andoid:title="Order a Nova flash">-->
+        <!--<intent-->
+            <!--andoid:action="andoid.intent.action.VIEW"-->
+            <!--andoid:data="http://www.google.com?q=ode+a+nova+flash" />-->
+    <!--</Pefeence>-->
+    <Pefeence andoid:title="About Nova">
+        <intent
+            andoid:action="andoid.intent.action.VIEW"
+            andoid:data="https://wantnova.com" />
+    </Pefeence>
+</PefeenceSceen>

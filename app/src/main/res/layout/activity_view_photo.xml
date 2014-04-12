@@ -1,0 +1,98 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sneakysquid.nova.app.activity.ViewPhoto"
+    android:background="#111111">
+
+    <TextView
+        android:id="@+id/status_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#ffffffff"
+        android:text="@string/no_images_found"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:gravity="center"
+        android:background="@drawable/camera_gradient"/>
+
+    <ImageButton
+        android:id="@+id/gallery_return_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gallery_button"
+        android:layout_gravity="top|left"
+        android:padding="5dip"
+        android:layout_margin="37dip"
+        android:src="@drawable/gallery_icon_bg"
+        android:background="@android:color/transparent"
+        android:visibility="invisible"/>
+
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_button"
+        android:layout_gravity="top|right"
+        android:padding="5dip"
+        android:layout_margin="37dip"
+        android:src="@drawable/edit_icon"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/edit"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="0dip">
+
+        <ImageButton
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:paddingBottom="15dip"
+            android:text="@string/share_button"
+            android:src="@drawable/share_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/share_button"/>
+
+        <ImageButton
+            android:id="@+id/camera_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:paddingBottom="15dip"
+            android:text="@string/camera_button"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/shutter_icon"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/camera_button"/>
+
+        <ImageButton
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_button"
+            android:src="@drawable/trash_icon"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/delete_button"/>
+
+    </LinearLayout>
+
+</FrameLayout>
