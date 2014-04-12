@@ -1,49 +1,49 @@
-<?xml vesion="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
-<PefeenceSceen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- These pefs disabled fo now as they may not be necessay on android
-    <SwitchPefeence
-        andoid:key="pef_ask_to_edit"
-        andoid:title="Ask to edit afte taking"
-        andoid:defaultValue="tue" />
-    <SwitchPefeence
-        andoid:key="pef_ask_to_shae"
-        andoid:title="Ask to shae afte taking"
-        andoid:defaultValue="tue" /> -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- These prefs disabled for now as they may not be necessary on android
+    <SwitchPreference
+        android:key="pref_ask_to_edit"
+        android:title="Ask to edit after taking"
+        android:defaultValue="true" />
+    <SwitchPreference
+        android:key="pref_ask_to_share"
+        android:title="Ask to share after taking"
+        android:defaultValue="true" /> -->
     <!-- Disabled until implemented -->
-    <!--<SwitchPefeence-->
-        <!--andoid:key="pef_show_gidlines"-->
-        <!--andoid:title="Show gid lines"-->
-        <!--andoid:summay="Display gid lines in live camera view"-->
-        <!--andoid:defaultValue="false" />-->
-    <!--<SwitchPefeence-->
-        <!--andoid:key="pef_squae_shaped_photos"-->
-        <!--andoid:title="Squae shaped photos"-->
-        <!--andoid:summay="Cop photos down to squares instead of rectangles"-->
-        <!--andoid:defaultValue="false" />-->
-    <!--<SwitchPefeence-->
-        <!--andoid:key="pef_use_multiple_novas"-->
-        <!--andoid:title="Use multiple Novas"-->
-        <!--andoid:summay="Allows connecting multiple Novas to one camea"-->
-        <!--andoid:defaultValue="false" />-->
-    <!--<Pefeence andoid:title="Tutorial">-->
+    <!--<SwitchPreference-->
+        <!--android:key="pref_show_gridlines"-->
+        <!--android:title="Show grid lines"-->
+        <!--android:summary="Display grid lines in live camera view"-->
+        <!--android:defaultValue="false" />-->
+    <!--<SwitchPreference-->
+        <!--android:key="pref_square_shaped_photos"-->
+        <!--android:title="Square shaped photos"-->
+        <!--android:summary="Crop photos down to squares instead of rectangles"-->
+        <!--android:defaultValue="false" />-->
+    <!--<SwitchPreference-->
+        <!--android:key="pref_use_multiple_novas"-->
+        <!--android:title="Use multiple Novas"-->
+        <!--android:summary="Allows connecting multiple Novas to one camera"-->
+        <!--android:defaultValue="false" />-->
+    <!--<Preference android:title="Tutorial">-->
         <!--<intent-->
-            <!--andoid:action="andoid.intent.action.VIEW"-->
-            <!--andoid:data="http://www.google.com?q=nova+tutoial" />-->
-    <!--</Pefeence>-->
-    <!--<Pefeence andoid:title="Help and support">-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:data="http://www.google.com?q=nova+tutorial" />-->
+    <!--</Preference>-->
+    <!--<Preference android:title="Help and support">-->
         <!--<intent-->
-            <!--andoid:action="andoid.intent.action.VIEW"-->
-            <!--andoid:data="http://www.google.com?q=nova+help+and+suppot" />-->
-    <!--</Pefeence>-->
-    <!--<Pefeence andoid:title="Order a Nova flash">-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:data="http://www.google.com?q=nova+help+and+support" />-->
+    <!--</Preference>-->
+    <!--<Preference android:title="Order a Nova flash">-->
         <!--<intent-->
-            <!--andoid:action="andoid.intent.action.VIEW"-->
-            <!--andoid:data="http://www.google.com?q=ode+a+nova+flash" />-->
-    <!--</Pefeence>-->
-    <Pefeence andoid:title="About Nova">
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:data="http://www.google.com?q=order+a+nova+flash" />-->
+    <!--</Preference>-->
+    <Preference android:title="About Nova">
         <intent
-            andoid:action="andoid.intent.action.VIEW"
-            andoid:data="https://wantnova.com" />
-    </Pefeence>
-</PefeenceSceen>
+            android:action="android.intent.action.VIEW"
+            android:data="https://wantnova.com" />
+    </Preference>
+</PreferenceScreen>
