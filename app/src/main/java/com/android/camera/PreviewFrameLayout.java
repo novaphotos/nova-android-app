@@ -16,6 +16,7 @@
 
 package com.android.camera;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 /**
  * A layout which handles the preview aspect ratio.
  */
+@SuppressLint("WrongCall") // Linter doesn't like explicit calls to .onXXX(), but we really want to do that here.
 public class PreviewFrameLayout extends RelativeLayout implements LayoutChangeNotifier {
 
     private static final String TAG = "PreviewFrameLayout";
