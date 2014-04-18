@@ -27,6 +27,7 @@ public class FlashSettingsDialog extends LinearLayout
     public static final String PREFS_NAME = "FlashSettingsPrefs";
     public static final String FLASH_MODE_PREF = "flashMode";
     private String flashMode;
+    private static final String DEFAULT_FLASH_MODE = "gentle";
 
     public FlashSettingsDialog(Context context, AttributeSet attrs)
     {
@@ -50,7 +51,7 @@ public class FlashSettingsDialog extends LinearLayout
         }
 
         this.editor = preferences.edit();
-        flashMode = "gentle";
+        flashMode = DEFAULT_FLASH_MODE;
         preferences.getString(FLASH_MODE_PREF, flashMode);
     }
 
@@ -113,6 +114,11 @@ public class FlashSettingsDialog extends LinearLayout
                 onBrightClick();
             }
         });
+
+        if (flashMode == null)
+        {
+            flashMode = DEFAULT_FLASH_MODE;
+        }
 
         if (flashMode.equals("off"))
         {

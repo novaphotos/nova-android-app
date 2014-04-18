@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.camera.PreviewFrameLayout;
@@ -28,7 +29,6 @@ import com.sneakysquid.nova.app.error.ErrorReporter;
 import com.sneakysquid.nova.app.error.ModalErrorReporter;
 import com.sneakysquid.nova.app.ui.CameraPreview;
 import com.sneakysquid.nova.app.ui.FlashSettingsDialog;
-import com.sneakysquid.nova.app.ui.GravityButton;
 import com.sneakysquid.nova.app.util.CustomOrientationHandler;
 import com.sneakysquid.nova.link.NovaFlashCommand;
 import com.sneakysquid.nova.link.NovaLink;
@@ -186,12 +186,12 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
         flashSettingsDialog.setCallback(this);
         hideFlashSettingsDialog();
 
-        GravityButton shutterButton = (GravityButton) findViewById(R.id.shutter_button);
-        GravityButton galleryButton = (GravityButton) findViewById(R.id.gallery_button);
+        ImageButton shutterButton = (ImageButton) findViewById(R.id.shutter_button);
+        ImageButton galleryButton = (ImageButton) findViewById(R.id.gallery_button);
         // todo: hide switch button on devices with only one camera
-        GravityButton switchButton = (GravityButton) findViewById(R.id.switch_button);
-        GravityButton modeButton = (GravityButton) findViewById(R.id.mode_button);
-        GravityButton prefsButton = (GravityButton) findViewById(R.id.prefs_button);
+        ImageButton switchButton = (ImageButton) findViewById(R.id.switch_button);
+        ImageButton modeButton = (ImageButton) findViewById(R.id.mode_button);
+        ImageButton prefsButton = (ImageButton) findViewById(R.id.prefs_button);
 
         shutterButton.setOnClickListener(new View.OnClickListener()
         {
