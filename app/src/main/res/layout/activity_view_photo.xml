@@ -26,7 +26,7 @@
         android:background="@drawable/camera_gradient"/>
 
     <ImageButton
-        android:id="@+id/gallery_return_button"
+        android:id="@+id/gallery_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gallery_button"
@@ -34,8 +34,7 @@
         android:padding="5dip"
         android:layout_margin="37dip"
         android:src="@drawable/gallery_icon_bg"
-        android:background="@android:color/transparent"
-        android:visibility="invisible"/>
+        android:background="@android:color/transparent"/>
 
     <ImageButton
         android:id="@+id/edit_button"

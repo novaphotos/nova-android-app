@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.sneakysquid.nova.app.R;
 import com.sneakysquid.nova.app.ui.TouchImageView;
 import com.sneakysquid.nova.app.util.BitmapWorkerTask;
+import com.sneakysquid.nova.app.util.FileUtil;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -44,8 +45,10 @@ public class ViewPhoto extends Activity {
     public static final String PREFS_NAME = "ViewPhotoPrefs";
     public static final String DISPLAYED_FILE_PREF = "displayedFile";
     private static final String AUX_DIR_NAME = ".aux";
+    private static final String NOVA_PICTURE_FOLDER = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/NovaCamera";
 
     private ViewPager viewPager;
+    private String currentFolder;
     private List<File> imageFiles;
     private SharedPreferences preferences;
     private TextView statusTextview;
@@ -56,6 +59,9 @@ public class ViewPhoto extends Activity {
     // Index of the displayedFile in the array used in the ViewPager
     private int displayedFileIndex;
 
+    // Used when selecting an image using the gallery button
+    private static final int SELECT_PICTURE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate()");
@@ -65,6 +71,8 @@ public class ViewPhoto extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_view_photo);
+
+        currentFolder = NOVA_PICTURE_FOLDER;
 
 //        goFullscreen();
         loadCachedData();
@@ -162,6 +170,38 @@ public class ViewPhoto extends Activity {
                 onEditClick();
             }
         });
+
+        ImageButton galleryButton = (ImageButton) findViewById(R.id.gallery_button);
+        galleryButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onGalleryClick();
+            }
+        });
+    }
+
+    private void onGalleryClick()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+            "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if(requestCode == SELECT_PICTURE && data != null && data.getData() != null) {
+                Uri uri = data.getData();
+
+                final String imageFilePath = FileUtil.getPath(this, uri);
+
+                displayedFile = new File(imageFilePath);
+                currentFolder = displayedFile.getParentFile().getAbsolutePath();
+            }
+        }
     }
 
     private void initControls()
@@ -424,7 +464,7 @@ public class ViewPhoto extends Activity {
 
         imageFiles = new ArrayList<File>();
 
-        File picsFolder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/NovaCamera");
+        File picsFolder = new File(currentFolder);
 
         if (!picsFolder.exists())
         {
