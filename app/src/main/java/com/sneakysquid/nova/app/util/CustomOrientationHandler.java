@@ -90,10 +90,19 @@ public class CustomOrientationHandler extends Observable implements Orientable
         private Orientable orientable;
         private int previousOrientation;
 
+        // The orientation that the accelerometer is reporting.
+        // Ignored until it is the same for ORIENTATION_CHANGE_THRESHOLD consecutive updates.
+        protected int newOrientation;
+        protected int orientationChangeCount;
+
+        // Number of consecutive consistent orientation measurements that must be received before
+        // an orientation change will be triggered.
+        protected static final int ORIENTATION_CHANGE_THRESHOLD = 3;
+
         public MyOrientationEventListener(Context context, Orientable orientable)
         {
             super(context);
-
+            newOrientation = -1;
             this.orientable = orientable;
         }
 
@@ -123,8 +132,26 @@ public class CustomOrientationHandler extends Observable implements Orientable
                 return;
             }
 
+            if (convertedOrientation == newOrientation)
+            {
+                orientationChangeCount++;
+            }
+            else
+            {
+                orientationChangeCount = 0;
+                newOrientation = convertedOrientation;
+            }
+
+            if (orientationChangeCount <= ORIENTATION_CHANGE_THRESHOLD)
+            {
+                return;
+            }
+
             orientable.setOrientation(convertedOrientation);
             previousOrientation = convertedOrientation;
+
+            this.newOrientation = convertedOrientation;
+            orientationChangeCount = 0;
         }
     }
 }
