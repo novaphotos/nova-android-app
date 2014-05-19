@@ -29,6 +29,6 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:19.0.0'
-    compile project(':library')
+    compile project(':nova-sdk')
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }

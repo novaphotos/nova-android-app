@@ -65,29 +65,26 @@
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="10dip"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:focusableInTouchMode="false">
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:layout_margin="5dip"
-                          android:text="Nova Status: Disconnected"
-                          android:textColor="#ffff" />
-                <TextView android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_margin="5dip"
-                          android:text="Signal: None"
-                          android:textColor="#ffff" />
+                          android:layout_margin="20dip"
+                          android:text="Nova: Disconnected"
+                          android:textColor="#ffff"
+                    android:id="@+id/status_text" />
             </LinearLayout>
 
             <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_height="53dp"
+                android:layout_width="53dp"
                 android:id="@+id/test_button"
-                android:layout_gravity="center"
+                android:layout_gravity="center|left"
                 android:layout_margin="10dip"
                 android:background="@drawable/button_test"/>
             <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_height="53dp"
+                android:layout_width="53dp"
                 android:id="@+id/ok_button"
                 android:layout_margin="10dip"
                 android:layout_gravity="center"

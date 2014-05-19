@@ -5,13 +5,13 @@ import android.hardware.Camera;
 import android.media.MediaActionSound;
 import android.view.OrientationEventListener;
 
-import com.sneakysquid.nova.link.NovaFlashCallback;
+import com.sneakysquid.nova.link.NovaCompletionCallback;
 import com.sneakysquid.nova.link.NovaFlashCommand;
 import com.sneakysquid.nova.link.NovaLink;
 import com.sneakysquid.nova.link.NovaLinkStatus;
 
-import static com.sneakysquid.nova.util.Debug.assertOnUiThread;
-import static com.sneakysquid.nova.util.Debug.debug;
+import static com.sneakysquid.nova.link.Debug.assertOnUiThread;
+import static com.sneakysquid.nova.link.Debug.debug;
 
 /**
  * Runnable task that implements the asynchronous flow of steps required to take a photo.
@@ -26,7 +26,7 @@ import static com.sneakysquid.nova.util.Debug.debug;
  *
  * @author Joe Walnes
  */
-public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, NovaFlashCallback, Camera.ShutterCallback, Camera.PictureCallback {
+public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, Camera.ShutterCallback, Camera.PictureCallback {
     private static final String TAG = "TakePhotoCommand";
     private final Activity activity;
     private final Camera camera;
@@ -89,24 +89,20 @@ public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, Nov
         assertOnUiThread();
 
         if (flashCmd == null || flashCmd.isPointless() || novaLink == null
-            || novaLink.getStatus() != NovaLinkStatus.Ready) {
+                || novaLink.getStatus() != NovaLinkStatus.Ready) {
             // Flash not needed, or not possible. Skip to step 3 and just take the photo.
             takePicture();
         } else {
             // Step 2: Trigger flash
-            novaLink.flash(flashCmd, this); // -> callback: onNovaFlashAcknowledged
+            novaLink.beginFlash(flashCmd, new NovaCompletionCallback() {
+                @Override
+                public void onComplete(boolean successful) {
+                    debug("onNovaFlashComplete(%s)", successful);
+                    // Step 3: take picture
+                    takePicture();
+                }
+            });
         }
-    }
-
-    @Override
-    public void onNovaFlashAcknowledged(boolean success) {
-        debug("onNovaFlashAcknowledged(%s)", success);
-        assertOnUiThread();
-
-        // Step 2: Trigger flash DONE
-        // TODO: Handle success==false
-
-        takePicture();
     }
 
     private void takePicture() {
@@ -127,7 +123,7 @@ public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, Nov
         if (orientation == OrientationEventListener.ORIENTATION_UNKNOWN) return 0;
 
         android.hardware.Camera.CameraInfo info =
-            new android.hardware.Camera.CameraInfo();
+                new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(cameraId, info);
 
         orientation = (orientation + 45) / 90 * 90;
@@ -147,7 +143,11 @@ public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, Nov
         debug("onShutter()");
         assertOnUiThread();
 
-        // TODO: Shutter finished. Deactivate flash ASAP
+        // Deactivate flash
+        if (flashCmd != null && !flashCmd.isPointless() && novaLink != null
+                && novaLink.getStatus() == NovaLinkStatus.Ready) {
+            novaLink.endFlash();
+        }
     }
 
     @Override
@@ -159,19 +159,6 @@ public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, Nov
 
         // Step 4: Call result
         result.onPhotoTaken(data);
-    }
-
-    private void delay(final int millis, final Runnable task) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(millis);
-                } catch (InterruptedException e) {
-                }
-                activity.runOnUiThread(task);
-            }
-        }).start();
     }
 
 }
