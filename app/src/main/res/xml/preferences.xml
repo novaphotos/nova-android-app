@@ -44,6 +44,16 @@
     <Preference android:title="About Nova">
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://wantnova.com" />
+            android:data="https://wantnova.com/?utm_campaign=app&amp;utm_medium=android&amp;utm_source=app" />
+    </Preference>
+    <Preference android:title="Help, support, feedback">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://wantnova.com/help/?utm_campaign=app&amp;utm_medium=android&amp;utm_source=app" />
+    </Preference>
+    <Preference android:title="Terms, conditions, privacy">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://wantnova.com/tos/?utm_campaign=app&amp;utm_medium=android&amp;utm_source=app" />
     </Preference>
 </PreferenceScreen>
