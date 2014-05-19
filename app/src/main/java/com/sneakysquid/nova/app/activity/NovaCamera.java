@@ -34,14 +34,14 @@ import com.sneakysquid.nova.link.NovaFlashCommand;
 import com.sneakysquid.nova.link.NovaLink;
 import com.sneakysquid.nova.link.NovaLinkStatus;
 import com.sneakysquid.nova.link.NovaLinkStatusCallback;
-import com.sneakysquid.nova.link.android.AndroidBleNovaLink;
+import com.sneakysquid.nova.link.BluetoothLENovaLink;
 
 import java.io.File;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import static com.sneakysquid.nova.util.Debug.assertOnUiThread;
+import static com.sneakysquid.nova.link.Debug.assertOnUiThread;
 
 /**
  * The main camera UI for the Nova Camera app.
@@ -74,6 +74,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
     private PhotoSaver photoSaver;
     private ErrorReporter errorReporter;
     private CustomOrientationHandler customOrientationHandler;
+    private NovaFlashCommand flashCmd = NovaFlashCommand.off();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,7 +93,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
         customOrientationHandler = new CustomOrientationHandler(this);
         customOrientationHandler.addObserver(this);
 
-        novaLink = new AndroidBleNovaLink(this);
+        novaLink = new BluetoothLENovaLink(this);
         novaLink.registerStatusCallback(this);
 
         photoSaver = new PhotoSaver(this, errorReporter);
@@ -288,6 +289,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
         initCamera();
         configureCamera();
         startPreview();
+        novaLink.enable();
     }
 
     @Override
@@ -297,6 +299,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
 
         customOrientationHandler.disable();
 
+        novaLink.disable();
         stopPreview();
         releaseCamera();
 
@@ -491,7 +494,6 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
             Toast.makeText(this, "Camera not found",
                 Toast.LENGTH_SHORT).show();
         } else {
-            NovaFlashCommand flashCmd = flashCommand();
             // Take photo
             Runnable takePhoto = takePhotoCommand(flashCmd, cameraId, orientation, new PhotoHandler());
             takePhoto.run();
@@ -549,14 +551,11 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
     @Override
     public void onNovaLinkStatusChange(NovaLinkStatus status)
     {
-        // todo: implement
+        flashSettingsDialog.setStatus(status);
     }
 
-    protected NovaFlashCommand flashCommand() {
-        return new NovaFlashCommand(255, 255, 500);  // TODO: Values from UI
-    }
-
-    protected TakePhotoCommand takePhotoCommand(NovaFlashCommand flashCmd, int cameraId, int orientation, TakePhotoCommand.Callback result) {
+    private TakePhotoCommand takePhotoCommand(NovaFlashCommand flashCmd, int cameraId, int orientation, TakePhotoCommand.Callback result)
+    {
         return new TakePhotoCommand(this, camera, cameraId, orientation, novaLink, flashCmd, result);
     }
 
@@ -585,6 +584,23 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
     public void onOkClick()
     {
         hideFlashSettingsDialog();
+    }
+
+    @Override
+    public void onTestClick()
+    {
+        Log.d(TAG, "test");
+        if (novaLink.getStatus() == NovaLinkStatus.Ready)
+        {
+            novaLink.beginFlash(flashCmd);
+        }
+    }
+
+    @Override
+    public void onFlashSettingsChange(NovaFlashCommand flashCmd)
+    {
+        Log.d(TAG, "flash settings: " + flashCmd);
+        this.flashCmd = flashCmd;
     }
 
     private class PhotoHandler implements TakePhotoCommand.Callback

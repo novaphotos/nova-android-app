@@ -31,7 +31,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.sneakysquid.nova.util.Debug.debug;
+import static com.sneakysquid.nova.link.Debug.debug;
 
 /**
  * @author Joe Walnes
