@@ -518,7 +518,19 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
 
     private void onModeClick()
     {
-        showFlashSettingsDialog();
+        if (flashSettingsDialog == null)
+        {
+            return;
+        }
+
+        if (flashSettingsDialog.getVisibility() == View.VISIBLE)
+        {
+            hideFlashSettingsDialog();
+        }
+        else
+        {
+            showFlashSettingsDialog();
+        }
     }
 
     private void showFlashSettingsDialog()
