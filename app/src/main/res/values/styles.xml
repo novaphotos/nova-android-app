@@ -4,6 +4,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:seekBarStyle">@style/SeekBarAppTheme</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
@@ -33,6 +34,10 @@
         <item name="android:button">@drawable/radio_bright</item>
     </style>
 
+    <style name="RadioButtonNeutral" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_neutral</item>
+    </style>
+
     <style name="RadioButtonWarm" parent="@android:style/Widget.CompoundButton.RadioButton">
         <item name="android:button">@drawable/radio_warm</item>
     </style>
@@ -41,6 +46,17 @@
         <item name="android:button">@drawable/radio_gentle</item>
     </style>
 
+    <style name="RadioButtonCustom" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_custom</item>
+    </style>
+
     <style name="ButtonBarButton" />
+
+    <!-- Generated with http://android-holo-colors.com -->
+    <style name="SeekBarAppTheme" parent="android:Widget.Holo.Light.SeekBar">
+        <item name="android:progressDrawable">@drawable/apptheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/apptheme_scrubber_progress_horizontal_holo_light</item>
+        <item name="android:thumb">@drawable/apptheme_scrubber_control_selector_holo_light</item>
+    </style>
 
 </resources>

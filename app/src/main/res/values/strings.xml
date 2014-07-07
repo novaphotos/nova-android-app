@@ -10,6 +10,7 @@
     <string name="off_button_label">Off</string>
     <string name="gentle_button_label">Gentle</string>
     <string name="warm_button_label">Warm</string>
+    <string name="neutral_button_label">Neutral</string>
     <string name="bright_button_label">Bright</string>
     <string name="custom_button_label">Custom</string>
     <string name="title_activity_view_photo">View Photo</string>

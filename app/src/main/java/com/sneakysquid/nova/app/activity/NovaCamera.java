@@ -75,6 +75,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
     private ErrorReporter errorReporter;
     private CustomOrientationHandler customOrientationHandler;
     private NovaFlashCommand flashCmd = NovaFlashCommand.off();
+    private ImageButton modeOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -192,6 +193,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
         // todo: hide switch button on devices with only one camera
         ImageButton switchButton = (ImageButton) findViewById(R.id.switch_button);
         ImageButton modeButton = (ImageButton) findViewById(R.id.mode_button);
+        modeOverlay = (ImageButton) findViewById(R.id.mode_overlay);
         ImageButton prefsButton = (ImageButton) findViewById(R.id.prefs_button);
 
         shutterButton.setOnClickListener(new View.OnClickListener()
@@ -207,6 +209,12 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
             @Override
             public void onClick(View v)
             {
+                onModeClick();
+            }
+        });
+        modeOverlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 onModeClick();
             }
         });
@@ -265,6 +273,8 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
             IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
             registerReceiver(screenOffReceiver, filter);
         }
+
+        setOverlayStatus(NovaLinkStatus.Disabled);
     }
 
     private void hideFlashSettingsDialog()
@@ -495,7 +505,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
                 Toast.LENGTH_SHORT).show();
         } else {
             // Take photo
-            Runnable takePhoto = takePhotoCommand(flashCmd, cameraId, orientation, new PhotoHandler());
+            Runnable takePhoto = takePhotoCommand(flashCmd.withDuration(3000), cameraId, orientation, new PhotoHandler());
             takePhoto.run();
         }
     }
@@ -508,7 +518,19 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
 
     private void onModeClick()
     {
-        showFlashSettingsDialog();
+        if (flashSettingsDialog == null)
+        {
+            return;
+        }
+
+        if (flashSettingsDialog.getVisibility() == View.VISIBLE)
+        {
+            hideFlashSettingsDialog();
+        }
+        else
+        {
+            showFlashSettingsDialog();
+        }
     }
 
     private void showFlashSettingsDialog()
@@ -552,6 +574,33 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
     public void onNovaLinkStatusChange(NovaLinkStatus status)
     {
         flashSettingsDialog.setStatus(status);
+        setOverlayStatus(status);
+    }
+
+    private void setOverlayStatus(NovaLinkStatus status)
+    {
+        Log.d(TAG, "status " + status);
+        switch (status)
+        {
+            case Disabled:
+                modeOverlay.setVisibility(View.VISIBLE);
+                modeOverlay.setImageResource(R.drawable.overlay_error);
+                break;
+            case Idle:
+                modeOverlay.setVisibility(View.INVISIBLE);
+                break;
+            case Scanning:
+            case Connecting:
+                modeOverlay.setVisibility(View.VISIBLE);
+                modeOverlay.setImageResource(R.drawable.overlay_searching);
+                break;
+            case Ready:
+                modeOverlay.setVisibility(View.VISIBLE);
+                modeOverlay.setImageResource(R.drawable.overlay_ok);
+                break;
+            default:
+                modeOverlay.setVisibility(View.INVISIBLE);
+        }
     }
 
     private TakePhotoCommand takePhotoCommand(NovaFlashCommand flashCmd, int cameraId, int orientation, TakePhotoCommand.Callback result)
@@ -592,7 +641,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
         Log.d(TAG, "test");
         if (novaLink.getStatus() == NovaLinkStatus.Ready)
         {
-            novaLink.beginFlash(flashCmd);
+            novaLink.beginFlash(flashCmd.withDuration(1000));
         }
     }
 

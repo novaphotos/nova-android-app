@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/dialog_border"
-        android:id="@+id/dialog_area">
+        android:id="@+id/dialog_area"
+        android:animateLayoutChanges="true">
         <RadioGroup
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dip">
+            android:layout_gravity="center_horizontal">
             <RadioButton
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -36,20 +36,74 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/warm_button"
-                style="@style/RadioButtonWarm"/>
+                style="@style/RadioButtonWarm" />
             <RadioButton
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/neutral_button"
+                style="@style/RadioButtonNeutral"/>
+            <RadioButton
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/bright_button"
                 style="@style/RadioButtonBright"/>
-            <!--<RadioButton-->
-                <!--android:layout_weight="1"-->
-                <!--android:paddingRight="5dip"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:id="@+id/custom_button"-->
-                <!--android:text="@string/custom_button_label"/>-->
+            <RadioButton
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/custom_button"
+                style="@style/RadioButtonCustom"/>
         </RadioGroup>
+        <GridLayout
+            android:id="@+id/custom_sliders"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2">
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Warm brightness"
+                android:layout_column="0"
+                android:layout_row="0"
+                android:textColor="#ffff"
+                android:textAlignment="viewEnd" />
+            <SeekBar
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3pt"
+                android:layout_marginBottom="3pt"
+                android:id="@+id/warm_slider"
+                android:max="255"
+                android:layout_column="1"
+                android:layout_row="0"/>
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Cool brightness"
+                android:layout_column="0"
+                android:layout_row="1"
+                android:textColor="#ffff" />
+            <SeekBar
+                android:layout_width="180dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3pt"
+                android:layout_marginBottom="3pt"
+                android:id="@+id/cool_slider"
+                android:max="255"
+                android:layout_column="1"
+                android:layout_row="1"/>
+        </GridLayout>
         <FrameLayout
             android:id="@+id/content_placeholder"
             android:layout_width="match_parent"
@@ -64,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="10dip"
+                android:layout_marginTop="10dip"
                 android:layout_weight="1"
                 android:focusableInTouchMode="false">
                 <TextView android:layout_width="wrap_content"

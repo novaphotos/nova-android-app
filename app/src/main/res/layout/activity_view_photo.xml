@@ -31,8 +31,7 @@
         android:layout_height="wrap_content"
         android:text="@string/gallery_button"
         android:layout_gravity="top|left"
-        android:padding="5dip"
-        android:layout_margin="37dip"
+        android:padding="20dip"
         android:src="@drawable/gallery_icon_bg"
         android:background="@android:color/transparent"/>
 
@@ -42,8 +41,7 @@
         android:layout_height="wrap_content"
         android:text="@string/edit_button"
         android:layout_gravity="top|right"
-        android:padding="5dip"
-        android:layout_margin="37dip"
+        android:padding="20dip"
         android:src="@drawable/edit_icon"
         android:background="@android:color/transparent"
         android:contentDescription="@string/edit"/>
@@ -59,12 +57,10 @@
             android:id="@+id/share_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dip"
-            android:paddingBottom="15dip"
+            android:padding="20dip"
             android:text="@string/share_button"
-            android:src="@drawable/share_icon"
+            android:src="@drawable/ic_action_share"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:contentDescription="@string/share_button"/>
 
@@ -72,8 +68,7 @@
             android:id="@+id/camera_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dip"
-            android:paddingBottom="15dip"
+            android:padding="20dip"
             android:text="@string/camera_button"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -85,10 +80,10 @@
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="20dip"
             android:text="@string/delete_button"
             android:src="@drawable/trash_icon"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:contentDescription="@string/delete_button"/>
 
