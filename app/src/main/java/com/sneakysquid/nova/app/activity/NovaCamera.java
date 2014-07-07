@@ -495,7 +495,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
                 Toast.LENGTH_SHORT).show();
         } else {
             // Take photo
-            Runnable takePhoto = takePhotoCommand(flashCmd, cameraId, orientation, new PhotoHandler());
+            Runnable takePhoto = takePhotoCommand(flashCmd.withDuration(3000), cameraId, orientation, new PhotoHandler());
             takePhoto.run();
         }
     }
@@ -592,7 +592,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
         Log.d(TAG, "test");
         if (novaLink.getStatus() == NovaLinkStatus.Ready)
         {
-            novaLink.beginFlash(flashCmd);
+            novaLink.beginFlash(flashCmd.withDuration(1000));
         }
     }
 

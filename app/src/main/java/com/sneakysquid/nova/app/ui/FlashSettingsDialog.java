@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.sneakysquid.nova.app.R;
@@ -19,6 +20,7 @@ import com.sneakysquid.nova.link.NovaLinkStatus;
  */
 public class FlashSettingsDialog extends LinearLayout
 {
+
     public interface FlashSettingsDialogCallback
     {
         void onOkClick();
@@ -31,8 +33,13 @@ public class FlashSettingsDialog extends LinearLayout
     private static final String TAG = "FlashSettingsDialog";
     public static final String PREFS_NAME = "FlashSettingsPrefs";
     public static final String FLASH_MODE_PREF = "flashMode";
+    public static final String FLASH_CUSTOM_WARM_PREF = "flashCustomWarm";
+    public static final String FLASH_CUSTOM_COOL_PREF = "flashCustomCool";
     private String flashMode;
-    private static final String DEFAULT_FLASH_MODE = "gentle";
+    private int customWarm;
+    private int customCool;
+    private View customSliders;
+    private static final String DEFAULT_FLASH_MODE = "warm";
 
     public FlashSettingsDialog(Context context, AttributeSet attrs)
     {
@@ -56,8 +63,9 @@ public class FlashSettingsDialog extends LinearLayout
         }
 
         this.editor = preferences.edit();
-        flashMode = DEFAULT_FLASH_MODE;
-        preferences.getString(FLASH_MODE_PREF, flashMode);
+        flashMode = preferences.getString(FLASH_MODE_PREF, DEFAULT_FLASH_MODE);
+        customWarm = protectPwmValue(preferences.getInt(FLASH_CUSTOM_WARM_PREF, 255));
+        customCool = protectPwmValue(preferences.getInt(FLASH_CUSTOM_COOL_PREF, 255));
     }
 
     private void setupUi()
@@ -109,6 +117,16 @@ public class FlashSettingsDialog extends LinearLayout
             }
         });
 
+        RadioButton neutralButton = ((RadioButton) findViewById(R.id.neutral_button));
+        neutralButton.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onNeutralClick();
+            }
+        });
+
         RadioButton gentleButton = ((RadioButton)findViewById(R.id.gentle_button));
         gentleButton.setOnClickListener(new OnClickListener()
         {
@@ -129,6 +147,64 @@ public class FlashSettingsDialog extends LinearLayout
             }
         });
 
+        RadioButton customButton = ((RadioButton)findViewById(R.id.custom_button));
+        customButton.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onCustomClick();
+            }
+        });
+
+        customSliders = findViewById(R.id.custom_sliders);
+
+        SeekBar warmSlider = ((SeekBar)findViewById(R.id.warm_slider));
+        warmSlider.setProgress(customWarm);
+        warmSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                customWarm = protectPwmValue(progress);
+                saveFlashSettings();
+                if (flashMode.equals("custom")) {
+                    onFlashSettingsChange(NovaFlashCommand.custom(customWarm, customCool));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // no-op
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // no-op
+            }
+        });
+
+        SeekBar coolSlider = ((SeekBar)findViewById(R.id.cool_slider));
+        coolSlider.setProgress(customCool);
+        coolSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                customCool = protectPwmValue(progress);
+                saveFlashSettings();
+                if (flashMode.equals("custom")) {
+                    onFlashSettingsChange(NovaFlashCommand.custom(customWarm, customCool));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // no-op
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // no-op
+            }
+        });
+
         if (flashMode == null)
         {
             flashMode = DEFAULT_FLASH_MODE;
@@ -137,51 +213,117 @@ public class FlashSettingsDialog extends LinearLayout
         if (flashMode.equals("off"))
         {
             offButton.setChecked(true);
+            hideCustomSliders();
             onFlashSettingsChange(NovaFlashCommand.off());
         }
         else if (flashMode.equals("warm"))
         {
             warmButton.setChecked(true);
+            hideCustomSliders();
             onFlashSettingsChange(NovaFlashCommand.warm());
+        }
+        else if (flashMode.equals("neutral"))
+        {
+            neutralButton.setChecked(true);
+            hideCustomSliders();
+            onFlashSettingsChange(NovaFlashCommand.neutral());
         }
         else if (flashMode.equals("gentle"))
         {
             gentleButton.setChecked(true);
+            hideCustomSliders();
             onFlashSettingsChange(NovaFlashCommand.gentle());
         }
         else if (flashMode.equals("bright"))
         {
             brightButton.setChecked(true);
+            hideCustomSliders();
             onFlashSettingsChange(NovaFlashCommand.bright());
+        }
+        else if (flashMode.equals("custom"))
+        {
+            customButton.setChecked(true);
+            showCustomSliders();
+            onFlashSettingsChange(NovaFlashCommand.custom(customWarm, customCool));
+        }
+        else
+        {
+            flashMode = "off";
+            offButton.setChecked(true);
+            hideCustomSliders();
+            onFlashSettingsChange(NovaFlashCommand.off());
+        }
+    }
+
+    private int protectPwmValue(int value)
+    {
+        if (value <= 10) {
+            return 0; // Min value
+        } else if (value < 63) {
+            return 63; // Special case: 0-63 is not ideal for Nova. Snap up to protect the hardware.
+        } else if (value < 255) {
+            return value; // User input
+        } else {
+            return 255; // Max value
         }
     }
 
     private void onBrightClick()
     {
         flashMode = "bright";
-        saveFlashSettings(flashMode);
+        saveFlashSettings();
+        hideCustomSliders();
         onFlashSettingsChange(NovaFlashCommand.bright());
     }
 
     private void onGentleClick()
     {
         flashMode = "gentle";
-        saveFlashSettings(flashMode);
+        saveFlashSettings();
+        hideCustomSliders();
         onFlashSettingsChange(NovaFlashCommand.gentle());
     }
 
     private void onOffClick()
     {
         flashMode = "off";
-        saveFlashSettings(flashMode);
+        saveFlashSettings();
+        hideCustomSliders();
         onFlashSettingsChange(NovaFlashCommand.off());
     }
 
     private void onWarmClick()
     {
         flashMode = "warm";
-        saveFlashSettings(flashMode);
+        saveFlashSettings();
+        hideCustomSliders();
         onFlashSettingsChange(NovaFlashCommand.warm());
+    }
+
+    private void onNeutralClick()
+    {
+        flashMode = "neutral";
+        saveFlashSettings();
+        hideCustomSliders();
+        onFlashSettingsChange(NovaFlashCommand.neutral());
+    }
+
+    private void onCustomClick()
+    {
+        flashMode = "custom";
+        saveFlashSettings();
+        showCustomSliders();
+        onFlashSettingsChange(NovaFlashCommand.custom(customWarm, customCool));
+    }
+
+    private void showCustomSliders()
+    {
+        customSliders.setVisibility(VISIBLE);
+    }
+
+    private void hideCustomSliders()
+    {
+        customSliders.setVisibility(GONE);
     }
 
     private void onOkClick()
@@ -208,14 +350,18 @@ public class FlashSettingsDialog extends LinearLayout
         }
     }
 
-    private void saveFlashSettings(String mode)
+    private void saveFlashSettings()
     {
         if (editor == null)
         {
             return;
         }
 
-        editor.putString(FLASH_MODE_PREF, mode);
+        Log.d(TAG, "Save flash settings : " + flashMode + (flashMode == "custom" ? (" (warm=" + customWarm +", cool=" + customCool + ")") : ""));
+
+        editor.putString(FLASH_MODE_PREF, flashMode);
+        editor.putInt(FLASH_CUSTOM_WARM_PREF, customWarm);
+        editor.putInt(FLASH_CUSTOM_COOL_PREF, customCool);
         editor.commit();
     }
 
@@ -231,6 +377,10 @@ public class FlashSettingsDialog extends LinearLayout
         {
             onFlashSettingsChange(NovaFlashCommand.warm());
         }
+        else if (flashMode.equals("neutral"))
+        {
+            onFlashSettingsChange(NovaFlashCommand.neutral());
+        }
         else if (flashMode.equals("gentle"))
         {
             onFlashSettingsChange(NovaFlashCommand.gentle());
@@ -238,6 +388,14 @@ public class FlashSettingsDialog extends LinearLayout
         else if (flashMode.equals("bright"))
         {
             onFlashSettingsChange(NovaFlashCommand.bright());
+        }
+        else if (flashMode.equals("custom"))
+        {
+            onFlashSettingsChange(NovaFlashCommand.custom(customWarm, customCool));
+        }
+        else
+        {
+            onFlashSettingsChange(NovaFlashCommand.off());
         }
     }
 
