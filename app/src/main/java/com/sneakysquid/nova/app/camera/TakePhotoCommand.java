@@ -116,7 +116,13 @@ public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, Cam
         parameters.setRotation(translateOrientation(orientation));
         camera.setParameters(parameters);
 
-        camera.takePicture(this, null, this); // -> callback: onShutter(), and onPictureTaken()
+        camera.autoFocus(new Camera.AutoFocusCallback() {
+            @Override
+            public void onAutoFocus(boolean success, Camera camera) {
+                debug("onAutoFocus(%s)", success);
+                camera.takePicture(TakePhotoCommand.this, null, TakePhotoCommand.this); // -> callback: onShutter(), and onPictureTaken()
+            }
+        });
     }
 
     public int translateOrientation(int orientation) {

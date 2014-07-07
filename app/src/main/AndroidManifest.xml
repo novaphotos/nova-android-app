@@ -10,6 +10,7 @@
 
     <uses-feature android:name="android.hardware.camera" android:required="true" />
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="true" />
 
     <application
         android:allowBackup="true"
