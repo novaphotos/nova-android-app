@@ -113,20 +113,42 @@
                 android:padding="20dp" />
         </com.sneakysquid.nova.app.ui.GravityLayout>
 
-        <com.sneakysquid.nova.app.ui.GravityLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
-            <ImageButton
-                android:id="@+id/mode_button"
+            <com.sneakysquid.nova.app.ui.GravityLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mode_button"
-                android:src="@drawable/mode_icon_no_overlay"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:padding="20dp" />
-        </com.sneakysquid.nova.app.ui.GravityLayout>
+                android:layout_gravity="center_vertical">
+                <ImageButton
+                    android:id="@+id/mode_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mode_button"
+                    android:src="@drawable/mode_icon_no_overlay"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:padding="20dp" />
+            </com.sneakysquid.nova.app.ui.GravityLayout>
+            <com.sneakysquid.nova.app.ui.GravityLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+                <ImageButton
+                    android:id="@+id/mode_overlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mode_button"
+                    android:src="@drawable/overlay_ok"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:paddingLeft="35dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="35dp"/>
+            </com.sneakysquid.nova.app.ui.GravityLayout>
+        </FrameLayout>
 
     </LinearLayout>
 </FrameLayout>
