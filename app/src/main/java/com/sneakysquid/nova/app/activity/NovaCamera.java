@@ -505,7 +505,7 @@ public class NovaCamera extends Activity implements NovaLinkStatusCallback, Obse
                 Toast.LENGTH_SHORT).show();
         } else {
             // Take photo
-            Runnable takePhoto = takePhotoCommand(flashCmd.withDuration(3000), cameraId, orientation, new PhotoHandler());
+            Runnable takePhoto = takePhotoCommand(flashCmd.withDuration(4000), cameraId, orientation, new PhotoHandler());
             takePhoto.run();
         }
     }
