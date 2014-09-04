@@ -79,7 +79,7 @@ public class TakePhotoCommand implements Runnable, Camera.AutoFocusCallback, Cam
         // Play auto-focus complete sound. Preference for this?
         (new MediaActionSound()).play(MediaActionSound.FOCUS_COMPLETE);
 
-        // Step 1: Auto-focus DONE.
+        // Step 1: Start flash
         triggerFlash();
     }
 
